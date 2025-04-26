@@ -40,12 +40,59 @@ class ProfilePageState
         email = result['email'];
         imageUrl = result['imageUrl'];
         feedback = result['feedback'];
+        _showFeedbackDialog();
       });
     } on PlatformException catch (e) {
       debugPrint(
         "Failed to get user profile: '${e.message}'.",
       );
     }
+  }
+
+  void _showFeedbackDialog() {
+    if (feedback.isEmpty) {
+      // No feedback, don't show anything
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: const Text(
+              'User Feedback',
+            ),
+            content: SizedBox(
+              width: double.maxFinite,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 1,
+                itemBuilder: (
+                  context,
+                  index,
+                ) {
+                  return ListTile(
+                    title: Text(
+                      feedback,
+                    ),
+                  );
+                },
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed:
+                    () =>
+                        Navigator.of(
+                          context,
+                        ).pop(),
+                child: const Text(
+                  'Close',
+                ),
+              ),
+            ],
+          ),
+    );
   }
 
   @override

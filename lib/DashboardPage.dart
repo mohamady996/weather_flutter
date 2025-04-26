@@ -25,9 +25,7 @@ class WeatherInfo {
 
     return WeatherInfo(
       city: city,
-      temperature:
-          tempKelvin -
-          273.15, // Convert from Kelvin to Celsius
+      temperature: tempKelvin - 273.15,
       condition: condition,
     );
   }
